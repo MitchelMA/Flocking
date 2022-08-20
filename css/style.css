@@ -45,7 +45,7 @@ nav > .side {
     padding: 1rem;
     padding-top: 2rem;
     transform: translateX(100%);
-    background-color: rgba(15, 15, 15, 1);
+    background-color: rgba(15, 15, 15, 0.6);
     transition: transform 250ms ease-out 0s;
 }
 
