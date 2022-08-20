@@ -9,7 +9,10 @@ class Boid {
     ctx.beginPath();
     ctx.lineWidth = 1;
     ctx.fillStyle = this.color;
-    drawTriangle(this.position.x, this.position.y, this.size);
+    ctx.translate(this.position.x, this.position.y);
+    ctx.rotate(0);
+    drawTriangle(0, 0, this.size);
+    ctx.resetTransform();
   }
 }
 

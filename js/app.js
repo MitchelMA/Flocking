@@ -2,6 +2,9 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const backgroundcolor = "#222";
 
+const DEG_TO_RAD = 0.017453292519943295;
+const RAD_TO_DEG = 57.29577951308232;
+
 let testBoid = new Boid(
   20,
   "whitesmoke",
