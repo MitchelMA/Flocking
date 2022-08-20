@@ -85,6 +85,7 @@ class Boid {
 
       // ALIGNMENT PART
       let speed = near.velocity.copy();
+      speed.sub(this.velocity);
       avspeed.add(speed);
       // END ALIGNMENT PART
     }
@@ -96,8 +97,10 @@ class Boid {
     // END COHESION PART
 
     // CONTINUING OF ALIGNMENT PART
-    avspeed.div(vearby.length);
-    a;
+    avspeed.div(nearby.length);
+    avspeed.mult(alignment);
+    this.velocity.add(avspeed);
+    // END OF ALIGNMENT PART
   }
 
   isInRange(other) {

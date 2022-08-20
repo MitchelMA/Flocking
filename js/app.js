@@ -10,7 +10,7 @@ const RAD_TO_DEG = 57.29577951308232;
 
 let showfps = true;
 // The speed at which every boid wants to fly
-let targetspeed = 0.2;
+let targetspeed = 0.1;
 // Factor on how fast every boid changes speed
 let resolve = 0.01;
 // The area in which the boid can see other boids
@@ -20,7 +20,7 @@ let seperation = 0.01;
 // Factor for the force of wanting to keep together
 let cohesion = 0.001;
 // Factor for the force of wanting to align with surounding boids
-let alignment = 0.001;
+let alignment = 0.01;
 
 // END USER DEFINES
 
