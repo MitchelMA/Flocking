@@ -58,26 +58,46 @@ class Boid {
   }
 
   calculate() {
-    for (let i = 0; i < boids.length; i++) {
-      let other = boids[i];
-      if (other === this) {
-        continue;
-      }
+    // get an array of the boids that are in range
+    let nearby = this.findnearby();
+    let avdist = Vector.zero();
+    let avspeed = Vector.zero();
 
-      if (this.isInRange(other)) {
-        // SEPERATION PART
-        // manoeuvre this boid away from the other boid that is in range
-        let sepvector = other.position.copy();
-        // now we have a vector pointing from this boid to the other boid
-        sepvector.sub(this.position);
-        // we normalize it and set the magnitude to the seperation value
-        sepvector.setMag(seperation);
-        // but we want to get away, so multiply it with -1 to invert it
-        sepvector.mult(-1);
-        this.velocity.add(sepvector);
-        // END SEPERATION PART
-      }
+    for (let near of nearby) {
+      // SEPERATION PART
+      // manoeuvre this boid away from the other boid that is in range
+      let sepvector = near.position.copy();
+      // now we have a vector pointing from this boid to the other boid
+      sepvector.sub(this.position);
+      // we normalize it and set the magnitude to the seperation value
+      sepvector.setMag(seperation);
+      // but we want to get away, so multiply it with -1 to invert it
+      sepvector.mult(-1);
+      this.velocity.add(sepvector);
+      // END SEPERATION PART
+
+      // COHESION PART
+      // get their average position
+      let dist = near.position.copy();
+      dist.sub(this.position);
+      avdist.add(dist);
+      // END COHESION PART
+
+      // ALIGNMENT PART
+      let speed = near.velocity.copy();
+      avspeed.add(speed);
+      // END ALIGNMENT PART
     }
+
+    // CONTINUING OF COHESION PART
+    avdist.div(nearby.length);
+    avdist.mult(cohesion);
+    this.velocity.add(avdist);
+    // END COHESION PART
+
+    // CONTINUING OF ALIGNMENT PART
+    avspeed.div(vearby.length);
+    a;
   }
 
   isInRange(other) {
@@ -86,5 +106,15 @@ class Boid {
     let distance = thisposcopy.mag();
 
     return distance <= range;
+  }
+
+  findnearby() {
+    let near = [];
+    for (let i = 0; i < boids.length; i++) {
+      if (this.isInRange(boids[i])) {
+        near.push(boids[i]);
+      }
+    }
+    return near;
   }
 }

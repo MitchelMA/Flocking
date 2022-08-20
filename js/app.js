@@ -17,6 +17,10 @@ let resolve = 0.01;
 let range = 35;
 // Factor for the force of keeping distance to other boids
 let seperation = 0.01;
+// Factor for the force of wanting to keep together
+let cohesion = 0.001;
+// Factor for the force of wanting to align with surounding boids
+let alignment = 0.001;
 
 // END USER DEFINES
 
