@@ -103,9 +103,9 @@ class Boid {
     // END OF ALIGNMENT PART
   }
 
-  isInRange(other) {
+  isInRange(otherposition) {
     let thisposcopy = this.position.copy();
-    thisposcopy.sub(other.position);
+    thisposcopy.sub(otherposition);
     let distance = thisposcopy.mag();
 
     return distance <= range;
@@ -114,7 +114,7 @@ class Boid {
   findnearby() {
     let near = [];
     for (let i = 0; i < boids.length; i++) {
-      if (this.isInRange(boids[i])) {
+      if (this.isInRange(boids[i].position)) {
         near.push(boids[i]);
       }
     }

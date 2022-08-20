@@ -1,3 +1,4 @@
+const navhandle = document.getElementById("handle");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const backgroundcolor = "#222";
@@ -8,7 +9,7 @@ const RAD_TO_DEG = 57.29577951308232;
 
 // USER DEFINES
 
-let showfps = true;
+let showfps = false;
 // The speed at which every boid wants to fly
 let targetspeed = 0.1;
 // Factor on how fast every boid changes speed
@@ -24,13 +25,7 @@ let alignment = 0.01;
 
 // END USER DEFINES
 
-let testBoid = new Boid(
-  20,
-  "whitesmoke",
-  new Vector(canvas.width / 2, canvas.height / 2),
-  Math.random() * (2 * Math.PI),
-  Math.random() * 0.5
-);
+let mouseVector = Vector.zero();
 
 // global array of boids
 let boids = [];
@@ -50,7 +45,7 @@ function setup() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // generate boids
-  generateBoids(50);
+  generateBoids(20);
 
   // request the draw
   window.requestAnimationFrame(draw);
@@ -83,16 +78,19 @@ function draw(time) {
   // end game code
 
   // show fps
+  ctx.font = "20px Arial";
   if (showfps) {
-    ctx.font = "20px Arial";
     ctx.fillText(fps.toFixed(0), 5, 25);
   }
+  // show boid count
+  ctx.fillText(boids.length, 65, 25);
 
   curT = time;
   window.requestAnimationFrame(draw);
 }
 
 function generateBoids(boidAmount) {
+  boids = [];
   for (let i = 0; i < boidAmount; i++) {
     let tmp = new Boid(
       15,
@@ -102,11 +100,97 @@ function generateBoids(boidAmount) {
         Math.floor(Math.random() * (canvas.height + 1))
       ),
       Math.random() * (2 * Math.PI),
-      0.1 + Math.random() * 0.5
+      0.1 + Math.random() * 0.2
     );
     boids.push(tmp);
   }
 }
 
+function addBoid(amount) {
+  for (let i = 0; i < amount; i++) {
+    let tmp = new Boid(
+      15,
+      boidcolor,
+      new Vector(
+        Math.floor(Math.random() * (canvas.width + 1)),
+        Math.floor(Math.random() * (canvas.height + 1))
+      ),
+      Math.random() * (2 * Math.PI),
+      0.1 + Math.random() * 0.2
+    );
+    boids.push(tmp);
+  }
+}
+
+function removeBoid(amount) {
+  for (let i = 0; i < amount; i++) boids.splice(0, 1);
+}
+
 // call setup
 setup();
+
+navhandle.addEventListener("click", (e) => {
+  navhandle.parentElement.classList.toggle("open");
+});
+
+// code for sliders
+// fpscheckbox
+const fpscheckbox = document.getElementById("showfpsinput");
+// targetspeed
+const targetspeedslider = document.getElementById("targetspeedinput");
+const targetspeedvalue = document.getElementById("targetspeedvalue");
+// resolve
+const resolveslider = document.getElementById("resolveinput");
+const resolvevalue = document.getElementById("resolvevalue");
+// range
+const rangeslider = document.getElementById("rangeinput");
+const rangevalue = document.getElementById("rangevalue");
+// seperation
+const seperationslider = document.getElementById("seperationinput");
+const seperationvalue = document.getElementById("seperationvalue");
+// cohesion
+const cohesionslider = document.getElementById("cohesioninput");
+const cohesionvalue = document.getElementById("cohesionvalue");
+// alignment
+const alignmentslider = document.getElementById("alignmentinput");
+const alignmentvalue = document.getElementById("alignmentvalue");
+
+fpscheckbox.onclick = function () {
+  showfps = this.checked;
+};
+
+targetspeedslider.onchange = function () {
+  targetspeedvalue.textContent = this.value;
+  targetspeed = Number(this.value);
+};
+
+resolveslider.onchange = function () {
+  resolvevalue.textContent = this.value;
+  resolve = Number(this.value);
+};
+
+rangeslider.onchange = function () {
+  rangevalue.textContent = this.value;
+  range = Number(this.value);
+};
+
+seperationslider.onchange = function () {
+  seperationvalue.textContent = this.value;
+  seperation = Number(this.value);
+};
+
+cohesionslider.onchange = function () {
+  cohesionvalue.textContent = this.value;
+  cohesion = Number(this.value);
+};
+
+alignmentslider.onchange = function () {
+  alignmentvalue.textContent = this.value;
+  alignment = Number(this.value);
+};
+
+// set the mouse position
+document.addEventListener("mousemove", (e) => {
+  mouseVector.x = e.clientX;
+  mouseVector.y = e.clientY;
+});

@@ -10,7 +10,100 @@
   </head>
   <body>
     <!-- Hier komt later een side-nav met de sliders -->
-    <nav></nav>
+    <nav class="open">
+      <div id="handle">open</div>
+      <div class="side">
+        <div class="container">
+          <!-- fps checkbox -->
+          <label for="showfpsinput">show fps: </label>
+          <input type="checkbox" name="showfpsinput" id="showfpsinput" />
+          <br />
+
+          <!-- targetspeed slider -->
+          <label for="targetspeedinput">target speed: </label>
+          <span id="targetspeedvalue"></span><br />
+          <input
+            type="range"
+            name="targetspeedinput"
+            id="targetspeedinput"
+            min="0.01"
+            max="1"
+            step="0.01"
+          /><br />
+
+          <!-- resolve -->
+          <label for="resolveinput">resolve: </label>
+          <span id="resolvevalue"></span><br />
+          <input
+            type="range"
+            name="resolveinput"
+            id="resolveinput"
+            min="0.001"
+            max="0.1"
+            step="0.001"
+          /><br />
+
+          <!-- range -->
+          <label for="rangeinput">range: </label>
+          <span id="rangevalue"></span><br />
+          <input
+            type="range"
+            name="rangeinput"
+            id="rangeinput"
+            min="30"
+            max="150"
+            step="1"
+          /><br />
+
+          <!-- seperation -->
+          <label for="seperationinput">seperation: </label>
+          <span id="seperationvalue"></span><br />
+          <input
+            type="range"
+            name="seperationinput"
+            id="seperationinput"
+            min="0.001"
+            max="0.05"
+            step="0.0002"
+          /><br />
+
+          <!-- cohesion -->
+          <label for="cohesioninput">cohesion: </label>
+          <span id="cohesionvalue"></span><br />
+          <input
+            type="range"
+            name="cohesioninput"
+            id="cohesioninput"
+            min="0.0001"
+            max="0.01"
+            step="0.00005"
+          /><br />
+
+          <!-- alignment -->
+          <label for="alignmentinput">alignment</label>
+          <span id="alignmentvalue"></span><br />
+          <input
+            type="range"
+            name="alignmentinput"
+            id="alignmentinput"
+            min="0.0001"
+            max="0.05"
+            step="0.00005"
+          />
+
+          <input
+            type="number"
+            name=""
+            id="numberinput"
+            style="margin-bottom: 0;"
+          />
+          <button onclick="addBoid(Number(numberinput.value));">add</button>
+          <button onclick="removeBoid(Number(numberinput.value));">
+            remove
+          </button>
+        </div>
+      </div>
+    </nav>
 
     <!-- Main met canvas -->
     <main>
