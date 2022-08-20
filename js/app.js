@@ -10,6 +10,7 @@ const RAD_TO_DEG = 57.29577951308232;
 // USER DEFINES
 
 let showfps = false;
+let seperatefrommouse = false;
 // The speed at which every boid wants to fly
 let targetspeed = 0.1;
 // Factor on how fast every boid changes speed
@@ -128,6 +129,14 @@ function removeBoid(amount) {
 
 // call setup
 setup();
+
+// mouse seperation
+document.addEventListener("mousedown", (e) => {
+  seperatefrommouse = true;
+});
+document.addEventListener("mouseup", (e) => {
+  seperatefrommouse = false;
+});
 
 navhandle.addEventListener("click", (e) => {
   navhandle.parentElement.classList.toggle("open");

@@ -76,6 +76,15 @@ class Boid {
       this.velocity.add(sepvector);
       // END SEPERATION PART
 
+      // MOUSE SEPERATION
+      if (this.isInRange(mouseVector) && seperatefrommouse) {
+        let mousesep = mouseVector.copy();
+        mousesep.sub(this.position);
+        mousesep.setMag(seperation);
+        mousesep.mult(-1);
+        this.velocity.add(mousesep);
+      }
+
       // COHESION PART
       // get their average position
       let dist = near.position.copy();
