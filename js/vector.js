@@ -62,10 +62,10 @@ class Vector {
   }
   heading = () => Math.atan2(this.y, this.x);
   copy = () => new Vector(this.x, this.y);
-  setByAngle(angle) {
-    this.x = Math.cos(angle);
-    this.y = Math.sin(angle);
-    return this;
+  static setByAngle(angle) {
+    let x = Math.cos(angle);
+    let y = Math.sin(angle);
+    return new Vector(x, y);
   }
   static zero = () => new Vector(0, 0);
 }
