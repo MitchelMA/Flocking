@@ -7,9 +7,18 @@ const DEG_TO_RAD = 0.017453292519943295;
 const RAD_TO_DEG = 57.29577951308232;
 
 // USER DEFINES
+
 let showfps = false;
-let targetspeed = 0.8;
-let resolve = 0.2;
+// The speed at which every boid wants to fly
+let targetspeed = 0.4;
+// Factor on how fast every boid changes speed
+let resolve = 0.01;
+// The area in which the boid can see other boids
+let range = 75;
+// Factor for the force of keeping distance to other boids
+let seperation = 0.02;
+
+// END USER DEFINES
 
 let testBoid = new Boid(
   20,
@@ -37,7 +46,7 @@ function setup() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // generate boids
-  generateBoids(10);
+  generateBoids(100);
 
   // request the draw
   window.requestAnimationFrame(draw);

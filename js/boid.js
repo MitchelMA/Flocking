@@ -8,6 +8,16 @@ class Boid {
   }
 
   draw() {
+    function drawTriangle(x, y, size) {
+      ctx.beginPath();
+      ctx.moveTo(x + size / 2, y);
+      ctx.lineTo(x - size / 2, y - size / 2);
+      ctx.lineTo(x - size / 2, y + size / 2);
+      ctx.lineTo(x + size / 2, y);
+      ctx.closePath();
+      ctx.fill();
+    }
+
     ctx.beginPath();
     ctx.lineWidth = 1;
     ctx.fillStyle = this.color;
@@ -18,11 +28,16 @@ class Boid {
   }
 
   move() {
-    let adjustedVelCopy = this.velocity.copy();
-
     let targetScale = this.velocity.copy();
     targetScale.setMag(targetspeed);
+    // v += resolve * (t - v)
+    // where `v` is the current velocity and `t` is the targetScale
+    targetScale.sub(this.velocity);
+    targetScale.mult(resolve);
+    this.velocity.add(targetScale);
 
+    // adjust the velocity vector by the deltaTime
+    let adjustedVelCopy = this.velocity.copy();
     adjustedVelCopy.mult(deltaT);
     this.position.add(adjustedVelCopy);
 
@@ -41,14 +56,4 @@ class Boid {
       this.position.y = 0;
     }
   }
-}
-
-function drawTriangle(x, y, size) {
-  ctx.beginPath();
-  ctx.moveTo(x + size / 2, y);
-  ctx.lineTo(x - size / 2, y - size / 2);
-  ctx.lineTo(x - size / 2, y + size / 2);
-  ctx.lineTo(x + size / 2, y);
-  ctx.closePath();
-  ctx.fill();
 }
