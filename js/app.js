@@ -8,15 +8,15 @@ const RAD_TO_DEG = 57.29577951308232;
 
 // USER DEFINES
 
-let showfps = false;
+let showfps = true;
 // The speed at which every boid wants to fly
-let targetspeed = 0.4;
+let targetspeed = 0.2;
 // Factor on how fast every boid changes speed
 let resolve = 0.01;
 // The area in which the boid can see other boids
-let range = 75;
+let range = 35;
 // Factor for the force of keeping distance to other boids
-let seperation = 0.02;
+let seperation = 0.01;
 
 // END USER DEFINES
 
@@ -46,7 +46,7 @@ function setup() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // generate boids
-  generateBoids(100);
+  generateBoids(50);
 
   // request the draw
   window.requestAnimationFrame(draw);
@@ -71,6 +71,7 @@ function draw(time) {
   // Start game code
 
   for (let boid of boids) {
+    boid.calculate();
     boid.move();
     boid.draw();
   }
@@ -90,7 +91,7 @@ function draw(time) {
 function generateBoids(boidAmount) {
   for (let i = 0; i < boidAmount; i++) {
     let tmp = new Boid(
-      10,
+      15,
       boidcolor,
       new Vector(
         Math.floor(Math.random() * (canvas.width + 1)),

@@ -56,4 +56,35 @@ class Boid {
       this.position.y = 0;
     }
   }
+
+  calculate() {
+    for (let i = 0; i < boids.length; i++) {
+      let other = boids[i];
+      if (other === this) {
+        continue;
+      }
+
+      if (this.isInRange(other)) {
+        // SEPERATION PART
+        // manoeuvre this boid away from the other boid that is in range
+        let sepvector = other.position.copy();
+        // now we have a vector pointing from this boid to the other boid
+        sepvector.sub(this.position);
+        // we normalize it and set the magnitude to the seperation value
+        sepvector.setMag(seperation);
+        // but we want to get away, so multiply it with -1 to invert it
+        sepvector.mult(-1);
+        this.velocity.add(sepvector);
+        // END SEPERATION PART
+      }
+    }
+  }
+
+  isInRange(other) {
+    let thisposcopy = this.position.copy();
+    thisposcopy.sub(other.position);
+    let distance = thisposcopy.mag();
+
+    return distance <= range;
+  }
 }
