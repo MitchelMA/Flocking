@@ -12,17 +12,17 @@ const RAD_TO_DEG = 57.29577951308232;
 let showfps = false;
 let seperatefrommouse = false;
 // The speed at which every boid wants to fly
-let targetspeed = 0.1;
+let targetspeed = 0.07;
 // Factor on how fast every boid changes speed
-let resolve = 0.01;
+let resolve = 0.007;
 // The area in which the boid can see other boids
-let range = 35;
+let range = 46;
 // Factor for the force of keeping distance to other boids
-let seperation = 0.01;
+let seperation = 0.0022;
 // Factor for the force of wanting to keep together
-let cohesion = 0.001;
+let cohesion = 0.00035;
 // Factor for the force of wanting to align with surounding boids
-let alignment = 0.01;
+let alignment = 0.035;
 
 // END USER DEFINES
 
@@ -148,21 +148,44 @@ const fpscheckbox = document.getElementById("showfpsinput");
 // targetspeed
 const targetspeedslider = document.getElementById("targetspeedinput");
 const targetspeedvalue = document.getElementById("targetspeedvalue");
+// set their starting values:
+targetspeedslider.value = targetspeed;
+targetspeedvalue.textContent = targetspeed;
+
 // resolve
 const resolveslider = document.getElementById("resolveinput");
 const resolvevalue = document.getElementById("resolvevalue");
+// set their starting values:
+resolveslider.value = resolve;
+resolvevalue.textContent = resolve;
+
 // range
 const rangeslider = document.getElementById("rangeinput");
 const rangevalue = document.getElementById("rangevalue");
+// set their starting values:
+rangeslider.value = range;
+rangevalue.textContent = range;
+
 // seperation
 const seperationslider = document.getElementById("seperationinput");
 const seperationvalue = document.getElementById("seperationvalue");
+// set their starting values:
+seperationslider.value = seperation;
+seperationvalue.textContent = seperation;
+
 // cohesion
 const cohesionslider = document.getElementById("cohesioninput");
 const cohesionvalue = document.getElementById("cohesionvalue");
+// set their starting values:
+cohesionslider.value = cohesion;
+cohesionvalue.textContent = cohesion;
+
 // alignment
 const alignmentslider = document.getElementById("alignmentinput");
 const alignmentvalue = document.getElementById("alignmentvalue");
+// set their starting values:
+alignmentslider.value = alignment;
+alignmentvalue.textContent = alignment;
 
 fpscheckbox.onclick = function () {
   showfps = this.checked;
