@@ -27,6 +27,9 @@ let alignment = 0.035;
 // END USER DEFINES
 
 let mouseVector = Vector.zero();
+let avdir = Vector.zero();
+
+let dirdailpos = new Vector(canvas.width - 100, canvas.height - 100);
 
 // global array of boids
 let boids = [];
@@ -52,6 +55,7 @@ function setup() {
   window.requestAnimationFrame(draw);
 }
 
+let testang = 10;
 function draw(time) {
   // calculation of deltaT
   if (oldT != 0) {
@@ -68,15 +72,50 @@ function draw(time) {
   ctx.fillStyle = backgroundcolor;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+  // reset the average direction vector and set the correct location of the direction dail position
+  avdir.x = 0;
+  avdir.y = 0;
+  dirdailpos.x = canvas.width - 100;
+  dirdailpos.y = canvas.height - 100;
+
   // Start game code
 
   for (let boid of boids) {
     boid.calculate();
     boid.move();
     boid.draw();
+    avdir.add(boid.velocity.copy());
   }
+  avdir.div(boids.length);
+  avdir.setMag(75);
 
   // end game code
+
+  // draw the average direction of all boids
+  ctx.beginPath();
+  ctx.strokeStyle = "limegreen";
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.lineWidth = 4;
+  ctx.translate(dirdailpos.x, dirdailpos.y);
+  ctx.moveTo(0, 0);
+  ctx.lineTo(avdir.x, avdir.y);
+
+  let sidevec = avdir.copy().rotatedBy(140 * DEG_TO_RAD);
+  sidevec.setMag(20);
+  sidevec.add(avdir);
+  ctx.lineTo(sidevec.x, sidevec.y);
+
+  ctx.moveTo(avdir.x, avdir.y);
+  sidevec = avdir.copy().rotatedBy(-140 * DEG_TO_RAD);
+  sidevec.setMag(20);
+  sidevec.add(avdir);
+
+  ctx.lineTo(sidevec.x, sidevec.y);
+
+  ctx.stroke();
+  ctx.resetTransform();
+  ctx.closePath();
 
   // show fps
   ctx.font = "20px Arial";
